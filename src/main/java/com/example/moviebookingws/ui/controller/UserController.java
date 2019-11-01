@@ -8,6 +8,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("users") //http://localhost::8080/users
 
@@ -15,32 +18,38 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    public List<UserRest> getUsers(){
+        List<UserDto> users = userService.getUsers();
+        List<UserRest> usersRest = new ArrayList<UserRest>();
+        BeanUtils.copyProperties(users,usersRest);
+        return usersRest;
+    }
 
-    @GetMapping
-    public String getUser(){
+    @GetMapping("/{userId}")
+    public String getUser(@RequestParam Integer userId){
         return "get user";
     }
 
     @PostMapping
     public UserRest createUser(@RequestBody UserDetailsRequestModel userDetails){
-        UserDto dto = new UserDto();
-        BeanUtils.copyProperties(userDetails,dto);
+        UserDto userDto = new UserDto();
+        BeanUtils.copyProperties(userDetails,userDto);
 
-        UserDto returnDto = userService.createUser(dto);
-        UserRest returnUser = new UserRest();
-        BeanUtils.copyProperties(returnDto,returnUser);
+        UserDto user = userService.createUser(userDto);
+        UserRest userRest = new UserRest();
+        BeanUtils.copyProperties(user,userRest);
 
-        return returnUser;
+        return userRest;
 
 
     }
 
-    @PutMapping
+    @PutMapping("/{userId}")
     public String updateUser(){
         return "update user";
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{userId}")
     public String deleteUser(){
         return "delete user";
     }
