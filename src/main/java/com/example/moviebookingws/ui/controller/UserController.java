@@ -18,16 +18,24 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @GetMapping("/all")
     public List<UserRest> getUsers(){
         List<UserDto> users = userService.getUsers();
         List<UserRest> usersRest = new ArrayList<UserRest>();
-        BeanUtils.copyProperties(users,usersRest);
+        for (UserDto userDto: users) {
+            UserRest userRest = new UserRest();
+            BeanUtils.copyProperties(userDto,userRest);
+            usersRest.add(userRest);
+        }
         return usersRest;
     }
 
-    @GetMapping("/{userId}")
-    public String getUser(@RequestParam Integer userId){
-        return "get user";
+    @GetMapping("/{id}")
+    public UserRest getUser(@PathVariable Integer id){
+        UserDto userDto = userService.getUser(id);
+        UserRest userRest = new UserRest();
+        BeanUtils.copyProperties(userDto, userRest);
+        return userRest;
     }
 
     @PostMapping
@@ -44,14 +52,20 @@ public class UserController {
 
     }
 
-    @PutMapping("/{userId}")
-    public String updateUser(){
-        return "update user";
+    @PutMapping("/{id}")
+    public UserRest updateUser(@PathVariable long id, @RequestBody UserDetailsRequestModel userDetails){
+        UserDto userDto  = new UserDto();
+        BeanUtils.copyProperties(userDetails, userDto);
+
+        UserDto user  = userService.updateUser(id, userDto);
+        UserRest userRest = new UserRest();
+        BeanUtils.copyProperties(user, userRest);
+        return userRest;
     }
 
-    @DeleteMapping("/{userId}")
-    public String deleteUser(){
-        return "delete user";
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable long id){
+        userService.deleteUser(id);
     }
 
 }
