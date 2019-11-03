@@ -12,6 +12,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -36,6 +41,48 @@ public class UserServiceImpl implements UserService {
         BeanUtils.copyProperties(storedUserDetails,returnValue);
 
         return returnValue;
+    }
+
+    public UserDto updateUser(long id, UserDto user) {
+        UserEntity userEntity = new UserEntity();
+
+        Optional<UserEntity> userOptional = userRepository.findById(id);
+        if (!userOptional.isPresent()) {
+            throw new EntityNotFoundException("id-" + id);
+        }
+        BeanUtils.copyProperties(user, userEntity);
+        userEntity.setId(id);
+        userEntity.setEncryptedPassword(userOptional.get().getEncryptedPassword());
+        userEntity.setUserId(userOptional.get().getUserId());
+
+        UserEntity updatedUserDetails = userRepository.save(userEntity);
+        UserDto userDto = new UserDto();
+        BeanUtils.copyProperties(userEntity, userDto);
+        return userDto;
+    }
+
+    public void deleteUser(long id) {
+        userRepository.deleteById(id);
+    }
+
+    public List<UserDto> getUsers() {
+        List<UserDto> usersDto = new ArrayList<UserDto>();
+        List<UserEntity> users = userRepository.findAll();
+        for (UserEntity user: users) {
+            UserDto userDto = new UserDto();
+            BeanUtils.copyProperties(user,userDto);
+            usersDto.add(userDto);
+        }
+        return usersDto;
+    }
+
+    public UserDto getUser(long id) {
+        UserDto userDto = new UserDto();
+        Optional<UserEntity> user  = userRepository.findById(id);
+        if (!user.isPresent())
+            throw new EntityNotFoundException("id-" + id);
+        BeanUtils.copyProperties(user.get(),userDto);
+        return userDto;
     }
 
     @Override

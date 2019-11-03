@@ -1,15 +1,13 @@
 package com.example.moviebookingws.io.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.swing.text.StyledEditorKit;
+
+import javax.persistence.*;
 import java.io.Serializable;
 
 
 
-@Entity(name = "Users")
+@Entity
+@Table(name = "Users")
 public class UserEntity implements Serializable {
 
 
