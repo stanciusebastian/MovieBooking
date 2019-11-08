@@ -18,7 +18,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/all")
+    /*@GetMapping("/all")
     public List<UserRest> getUsers(){
         List<UserDto> users = userService.getUsers();
         List<UserRest> usersRest = new ArrayList<UserRest>();
@@ -28,11 +28,12 @@ public class UserController {
             usersRest.add(userRest);
         }
         return usersRest;
-    }
+    }*/
+
 
     @GetMapping("/{id}")
-    public UserRest getUser(@PathVariable Integer id){
-        UserDto userDto = userService.getUser(id);
+    public UserRest getUser(@PathVariable String id){
+        UserDto userDto = userService.getUserByUserId(id);
         UserRest userRest = new UserRest();
         BeanUtils.copyProperties(userDto, userRest);
         return userRest;
@@ -53,7 +54,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public UserRest updateUser(@PathVariable long id, @RequestBody UserDetailsRequestModel userDetails){
+    public UserRest updateUser(@PathVariable String id, @RequestBody UserDetailsRequestModel userDetails){
         UserDto userDto  = new UserDto();
         BeanUtils.copyProperties(userDetails, userDto);
 
@@ -64,7 +65,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable long id){
+    public void deleteUser(@PathVariable String id){
         userService.deleteUser(id);
     }
 

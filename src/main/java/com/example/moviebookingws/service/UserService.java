@@ -8,12 +8,14 @@ import java.util.List;
 public interface UserService extends UserDetailsService {
     UserDto createUser(UserDto user);
 
-    void deleteUser(long Id);
+    UserDto getUser(String email);
 
-    UserDto updateUser(long Id, UserDto user);
+    void deleteUser(String userId);
+
+    UserDto updateUser(String Id, UserDto user);
 
     List<UserDto> getUsers();
 
-    UserDto getUser(long Id);
+    UserDto getUserByUserId(String userId);
 
 }

@@ -1,12 +1,13 @@
 package com.example.moviebookingws.service.impl;
 
-import com.example.moviebookingws.UserRepository;
+import com.example.moviebookingws.io.repositories.UserRepository;
 import com.example.moviebookingws.io.entity.UserEntity;
 import com.example.moviebookingws.service.UserService;
 import com.example.moviebookingws.shared.dto.UserDto;
 import com.example.moviebookingws.shared.dto.Utils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -43,26 +44,28 @@ public class UserServiceImpl implements UserService {
         return returnValue;
     }
 
-    public UserDto updateUser(long id, UserDto user) {
-        UserEntity userEntity = new UserEntity();
-
-        Optional<UserEntity> userOptional = userRepository.findById(id);
-        if (!userOptional.isPresent()) {
-            throw new EntityNotFoundException("id-" + id);
+    public UserDto updateUser(String userId, UserDto user) {
+        UserEntity userOptional = userRepository.findByUserId(userId);
+        if (userOptional==null) {
+            throw new EntityNotFoundException("UserId-" + userId);
         }
-        BeanUtils.copyProperties(user, userEntity);
-        userEntity.setId(id);
-        userEntity.setEncryptedPassword(userOptional.get().getEncryptedPassword());
-        userEntity.setUserId(userOptional.get().getUserId());
 
-        UserEntity updatedUserDetails = userRepository.save(userEntity);
+        //userOptional.setEncryptedPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userOptional.setFirstName(user.getFirstName());
+        userOptional.setLastName(user.getLastName());
+        userOptional.setEmail(user.getEmail());
+
+        UserEntity updatedUserDetails = userRepository.save(userOptional);
         UserDto userDto = new UserDto();
-        BeanUtils.copyProperties(userEntity, userDto);
+        BeanUtils.copyProperties(updatedUserDetails, userDto);
         return userDto;
     }
 
-    public void deleteUser(long id) {
-        userRepository.deleteById(id);
+    public void deleteUser(String userId) {
+        UserEntity user  = userRepository.findByUserId(userId);
+        if (user==null)
+            throw new EntityNotFoundException("id-" + userId);
+        userRepository.delete(user);
     }
 
     public List<UserDto> getUsers() {
@@ -76,17 +79,27 @@ public class UserServiceImpl implements UserService {
         return usersDto;
     }
 
-    public UserDto getUser(long id) {
+    public UserDto getUserByUserId(String id) {
         UserDto userDto = new UserDto();
-        Optional<UserEntity> user  = userRepository.findById(id);
+        Optional<UserEntity> user  = Optional.ofNullable(userRepository.findByUserId(id));
         if (!user.isPresent())
             throw new EntityNotFoundException("id-" + id);
         BeanUtils.copyProperties(user.get(),userDto);
         return userDto;
     }
 
+    public UserDto getUser(String email){
+        UserEntity userEntity = userRepository.findByEmail(email);
+        if(userEntity==null) throw new UsernameNotFoundException(email);
+        UserDto returnValue = new UserDto();
+        BeanUtils.copyProperties(userEntity,returnValue);
+        return returnValue;
+    }
+
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return null;
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        UserEntity userEntity = userRepository.findByEmail(email);
+        if(userEntity==null) throw new UsernameNotFoundException(email);
+        return new User(userEntity.getEmail(),userEntity.getEncryptedPassword(),new ArrayList<>());
     }
 }
