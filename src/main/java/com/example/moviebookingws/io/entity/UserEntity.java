@@ -27,11 +27,8 @@ public class UserEntity implements Serializable {
     @Column(nullable = false, length = 100)
     private String email;
 
-    @ManyToMany
-    @JoinTable(name = "user_movie",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "movie_id"))
-    Set<MovieEntity> joinedMovies;
+    @OneToMany(mappedBy = "user")
+    Set<UserMovieEntity> joinedMovies;
 
     @Column(nullable = false)
     private String encryptedPassword;

@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+@Entity
+@Table(name = "MovieSchedule")
 public class MovieScheduleEntity implements Serializable {
 
     @Id
@@ -14,9 +16,10 @@ public class MovieScheduleEntity implements Serializable {
     @Column(nullable =  false, length = 35)
     private String hall;
 
-    @OneToMany(mappedBy = "movie")
-    Set<MovieEntity> movies;
+    @ManyToOne
+    private MovieEntity movie;
 
+    @Column(nullable = true)
     @Temporal(TemporalType.DATE)
     private Date schedule;
 
@@ -36,13 +39,6 @@ public class MovieScheduleEntity implements Serializable {
         this.hall = hall;
     }
 
-    public Set<MovieEntity> getMovies() {
-        return movies;
-    }
-
-    public void setMovies(Set<MovieEntity> movies) {
-        this.movies = movies;
-    }
 
     public Date getSchedule() {
         return schedule;

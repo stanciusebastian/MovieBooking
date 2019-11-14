@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name = "Movies")
+@Table(name = "Movie")
 public class MovieEntity implements Serializable {
 
     @Id
@@ -20,80 +20,39 @@ public class MovieEntity implements Serializable {
     @Column(nullable = false, length = 35)
     private String name;
 
+    @OneToMany(mappedBy = "movie")
+    private Set<UserMovieEntity> usersJoined;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("movie_id")
-    @JoinColumn(name = "movie_id")
-    private MovieScheduleEntity schedule;
+    @JoinColumn(name = "genre_id")
+    private GenreEntity genre;
 
-    @ManyToMany
-    @JoinTable(name = "user_movie",
-            joinColumns = @JoinColumn(name = "movie_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Set<UserEntity> usersJoined;
-
-    @ManyToMany
-    @JoinTable(name = "movie_actor",
-            joinColumns = @JoinColumn(name = "movie_id"),
-            inverseJoinColumns = @JoinColumn(name = "actor_id"))
-    private Set<MovieEntity> actors;
-
-    @ManyToMany
-    @JoinTable(name = "movie_genre",
-            joinColumns = @JoinColumn(name = "movie_id"),
-            inverseJoinColumns = @JoinColumn(name = "genre_id"))
-    private Set<GenreEntity> genres;
-
-    public Set<GenreEntity> getGenres() {
-        return genres;
-    }
-
-    public void setGenres(Set<GenreEntity> genres) {
-        this.genres = genres;
-    }
-
-    public MovieScheduleEntity getSchedule() {
-        return schedule;
-    }
-
-    public void setSchedule(MovieScheduleEntity schedule) {
-        this.schedule = schedule;
-    }
-
-    public Set<UserEntity> getUsersJoined() {
-        return usersJoined;
-    }
-
-    public void setUsersJoined(Set<UserEntity> usersJoined) {
-        this.usersJoined = usersJoined;
-    }
-
-    public Set<MovieEntity> getActors() {
-        return actors;
-    }
-
-    public void setActors(Set<MovieEntity> actors) {
-        this.actors = actors;
-    }
-
-    public Integer getRating() {
-        return rating;
-    }
-
-    public void setRating(Integer rating) {
-        this.rating = rating;
-    }
-
-    @Column(nullable = false)
-    private Integer rating;
-
+    @Column(nullable = true)
     @Temporal(TemporalType.DATE)
     private Date releaseDate;
 
+    @ManyToMany
+    @JoinTable(
+            name = "movie_actor",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "actor_id"))
+    Set<ActorEntity> playedActors;
+
+    @Column(nullable = true)
     @Temporal(TemporalType.DATE)
     private Date createdAt;
 
+    @Column(nullable = true)
     @Temporal(TemporalType.DATE)
     private Date modifiedAt;
+
+    public Set<UserMovieEntity> getUsersJoined() {
+        return usersJoined;
+    }
+
+    public void setUsersJoined(Set<UserMovieEntity> usersJoined) {
+        this.usersJoined = usersJoined;
+    }
 
     public String getName() {
         return name;

@@ -1,40 +1,53 @@
 package com.example.moviebookingws.io.entity;
 
-import javax.persistence.Column;
+import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
+@Table(name = "UserMovie")
 public class UserMovieEntity implements Serializable {
 
-    @Column(nullable = false, length = 10)
-    private Integer userId;
+    @Id
+    @GeneratedValue
+    private long Id;
 
-    @Column(nullable = false, length = 10)
-    private Integer movieId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
+
+    @ManyToOne
+    @JoinColumn(name = "movie_id")
+    private MovieEntity movie;
 
     @Column(nullable = true, length = 10)
-    private Integer rating;
+    private long rating;
 
-    public Integer getUserId() {
-        return userId;
+    public UserMovieEntity(UserEntity user, MovieEntity movie) {
+        this.user = user;
+        this.movie = movie;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public Integer getMovieId() {
-        return movieId;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
-    public void setMovieId(Integer movieId) {
-        this.movieId = movieId;
+    public MovieEntity getMovie() {
+        return movie;
     }
 
-    public Integer getRating() {
+    public void setMovie(MovieEntity movie) {
+        this.movie = movie;
+    }
+
+    public long getRating() {
         return rating;
     }
 
-    public void setRating(Integer rating) {
+    public void setRating(long rating) {
         this.rating = rating;
     }
 }

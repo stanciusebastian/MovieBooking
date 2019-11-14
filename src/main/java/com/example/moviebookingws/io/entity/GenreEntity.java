@@ -15,24 +15,23 @@ public class GenreEntity {
     @Column(nullable =  false, length = 35)
     private String name;
 
-    @ManyToMany
-    @JoinTable(name = "movie_genre",
-            joinColumns = @JoinColumn(name = "genre_id"),
-            inverseJoinColumns = @JoinColumn(name = "movie_id"))
+    @OneToMany(mappedBy = "genre")
     private Set<MovieEntity> movies;
 
+    @Column(nullable = true)
     @Temporal(TemporalType.DATE)
     private Date createdAt;
 
+    @Column(nullable = true)
     @Temporal(TemporalType.DATE)
     private Date modifiedAt;
 
-    public Set<MovieEntity> getMovies() {
-        return movies;
+    public long getId() {
+        return Id;
     }
 
-    public void setMovies(Set<MovieEntity> movies) {
-        this.movies = movies;
+    public void setId(long id) {
+        Id = id;
     }
 
     public String getName() {
@@ -43,12 +42,12 @@ public class GenreEntity {
         this.name = name;
     }
 
-    public long getId() {
-        return Id;
+    public Set<MovieEntity> getMovies() {
+        return movies;
     }
 
-    public void setId(long id) {
-        Id = id;
+    public void setMovies(Set<MovieEntity> movies) {
+        this.movies = movies;
     }
 
     public Date getCreatedAt() {

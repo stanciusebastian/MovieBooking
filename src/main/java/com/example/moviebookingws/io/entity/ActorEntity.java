@@ -21,29 +21,28 @@ public class ActorEntity {
     private String lastName;
 
     @Column(nullable = true, length = 10)
-    private Integer age;
+    private long age;
 
     @Column(nullable = true, length = 10)
     private String gender;
 
-    @ManyToMany
-    @JoinTable(name = "movie_actor",
-            joinColumns = @JoinColumn(name = "actor_id"),
-            inverseJoinColumns = @JoinColumn(name = "movie_id"))
-    private Set<MovieEntity> movies;
+    @ManyToMany(mappedBy = "playedActors")
+    private Set<MovieEntity> playedMovies;
 
+    @Column(nullable = true)
     @Temporal(TemporalType.DATE)
     private Date createdAt;
 
+    @Column(nullable = true)
     @Temporal(TemporalType.DATE)
     private Date modifiedAt;
 
-    public Set<MovieEntity> getMovies() {
-        return movies;
+    public long getId() {
+        return Id;
     }
 
-    public void setMovies(Set<MovieEntity> movies) {
-        this.movies = movies;
+    public void setId(long id) {
+        Id = id;
     }
 
     public String getFirstName() {
@@ -62,23 +61,11 @@ public class ActorEntity {
         this.lastName = lastName;
     }
 
-    public String getFullName() {
-        return this.firstName + ' ' + this.lastName;
-    }
-
-    public long getId() {
-        return Id;
-    }
-
-    public void setId(long id) {
-        Id = id;
-    }
-
-    public Integer getAge() {
+    public long getAge() {
         return age;
     }
 
-    public void setAge(Integer age) {
+    public void setAge(long age) {
         this.age = age;
     }
 
@@ -88,6 +75,14 @@ public class ActorEntity {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public Set<MovieEntity> getPlayedMovies() {
+        return playedMovies;
+    }
+
+    public void setPlayedMovies(Set<MovieEntity> playedMovies) {
+        this.playedMovies = playedMovies;
     }
 
     public Date getCreatedAt() {
