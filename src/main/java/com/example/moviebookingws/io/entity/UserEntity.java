@@ -3,7 +3,7 @@ package com.example.moviebookingws.io.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-
+import java.util.Set;
 
 
 @Entity
@@ -26,6 +26,9 @@ public class UserEntity implements Serializable {
 
     @Column(nullable = false, length = 100)
     private String email;
+
+    @OneToMany(mappedBy = "user")
+    Set<UserMovieEntity> joinedMovies;
 
     @Column(nullable = false)
     private String encryptedPassword;

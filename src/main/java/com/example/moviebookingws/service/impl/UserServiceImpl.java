@@ -22,11 +22,11 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
     @Autowired
-    Utils utils;
+    private Utils utils;
     @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public UserDto createUser(UserDto user) {
@@ -44,6 +44,7 @@ public class UserServiceImpl implements UserService {
         return returnValue;
     }
 
+    @Override
     public UserDto updateUser(String userId, UserDto user) {
         UserEntity userOptional = userRepository.findByUserId(userId);
         if (userOptional==null) {
@@ -61,6 +62,7 @@ public class UserServiceImpl implements UserService {
         return userDto;
     }
 
+    @Override
     public void deleteUser(String userId) {
         UserEntity user  = userRepository.findByUserId(userId);
         if (user==null)
@@ -68,6 +70,7 @@ public class UserServiceImpl implements UserService {
         userRepository.delete(user);
     }
 
+    @Override
     public List<UserDto> getUsers() {
         List<UserDto> usersDto = new ArrayList<UserDto>();
         List<UserEntity> users = userRepository.findAll();
@@ -79,6 +82,7 @@ public class UserServiceImpl implements UserService {
         return usersDto;
     }
 
+    @Override
     public UserDto getUserByUserId(String id) {
         UserDto userDto = new UserDto();
         Optional<UserEntity> user  = Optional.ofNullable(userRepository.findByUserId(id));
@@ -88,6 +92,7 @@ public class UserServiceImpl implements UserService {
         return userDto;
     }
 
+    @Override
     public UserDto getUser(String email){
         UserEntity userEntity = userRepository.findByEmail(email);
         if(userEntity==null) throw new UsernameNotFoundException(email);
@@ -95,6 +100,7 @@ public class UserServiceImpl implements UserService {
         BeanUtils.copyProperties(userEntity,returnValue);
         return returnValue;
     }
+
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

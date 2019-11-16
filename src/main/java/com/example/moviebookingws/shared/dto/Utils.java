@@ -2,7 +2,6 @@ package com.example.moviebookingws.shared.dto;
 
 import org.springframework.stereotype.Service;
 
-import javax.persistence.Entity;
 import java.security.SecureRandom;
 import java.util.Random;
 
@@ -12,6 +11,26 @@ public class Utils {
     private final String ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     public String generateUserId(int length){
+        return generateRandomString(length);
+    }
+
+    public String generateActorId(int length){
+        return generateRandomString(length);
+    }
+
+    public String generateGenreId(int length){
+        return generateRandomString(length);
+    }
+
+    public String generateMovieId(int length){
+        return generateRandomString(length);
+    }
+
+    public String generateMovieScheduleId(int length){
+        return generateRandomString(length);
+    }
+
+    public String generateAttendeeId(int length){
         return generateRandomString(length);
     }
 
