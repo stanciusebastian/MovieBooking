@@ -1,9 +1,6 @@
 package com.example.moviebookingws.io.entity;
 
 
-import org.apache.catalina.User;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -20,7 +17,10 @@ public class MovieEntity implements Serializable {
     @Column(nullable = false, length = 35)
     private String name;
 
-    @OneToMany(mappedBy = "movie")
+    @Column(nullable = false, length = 35)
+    private String movieId;
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private Set<UserMovieEntity> usersJoined;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -28,7 +28,7 @@ public class MovieEntity implements Serializable {
     private GenreEntity genre;
 
     @Column(nullable = true)
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date releaseDate;
 
     @ManyToMany
@@ -39,12 +39,36 @@ public class MovieEntity implements Serializable {
     Set<ActorEntity> playedActors;
 
     @Column(nullable = true)
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
     @Column(nullable = true)
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date modifiedAt;
+
+    public String getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(String movieId) {
+        this.movieId = movieId;
+    }
+
+    public GenreEntity getGenre() {
+        return genre;
+    }
+
+    public void setGenre(GenreEntity genre) {
+        this.genre = genre;
+    }
+
+    public Set<ActorEntity> getPlayedActors() {
+        return playedActors;
+    }
+
+    public void setPlayedActors(Set<ActorEntity> playedActors) {
+        this.playedActors = playedActors;
+    }
 
     public Set<UserMovieEntity> getUsersJoined() {
         return usersJoined;

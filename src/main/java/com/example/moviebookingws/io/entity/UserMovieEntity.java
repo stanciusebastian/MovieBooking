@@ -11,20 +11,34 @@ public class UserMovieEntity implements Serializable {
     @GeneratedValue
     private long Id;
 
-    @ManyToOne
+    @Column
+    private String attendeeId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "movie_id")
     private MovieEntity movie;
 
     @Column(nullable = true, length = 10)
     private long rating;
 
-    public UserMovieEntity(UserEntity user, MovieEntity movie) {
-        this.user = user;
-        this.movie = movie;
+    public long getId() {
+        return Id;
+    }
+
+    public void setId(long id) {
+        Id = id;
+    }
+
+    public String getAttendeeId() {
+        return attendeeId;
+    }
+
+    public void setAttendeeId(String attendeeId) {
+        this.attendeeId = attendeeId;
     }
 
     public UserEntity getUser() {

@@ -1,32 +1,14 @@
-package com.example.moviebookingws.io.entity;
+package com.example.moviebookingws.shared.dto;
 
-import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 
-@Entity
-@Table(name = "Genre")
-public class GenreEntity {
-
-    @Id
-    @GeneratedValue
-    private long Id;
-
-    @Column
+public class GenreDto implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private long  Id;
     private String genreId;
-
-    @Column(nullable =  false, length = 35)
     private String name;
-
-    @OneToMany(mappedBy = "genre")
-    private Set<MovieEntity> movies;
-
-    @Column(nullable = true)
-    @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
-
-    @Column(nullable = true)
-    @Temporal(TemporalType.TIMESTAMP)
     private Date modifiedAt;
 
     public long getId() {
@@ -51,14 +33,6 @@ public class GenreEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<MovieEntity> getMovies() {
-        return movies;
-    }
-
-    public void setMovies(Set<MovieEntity> movies) {
-        this.movies = movies;
     }
 
     public Date getCreatedAt() {

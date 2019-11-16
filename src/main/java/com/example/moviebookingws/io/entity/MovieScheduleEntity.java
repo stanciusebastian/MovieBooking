@@ -3,7 +3,6 @@ package com.example.moviebookingws.io.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
 @Table(name = "MovieSchedule")
@@ -13,15 +12,27 @@ public class MovieScheduleEntity implements Serializable {
     @GeneratedValue
     private long Id;
 
+    @Column
+    private String scheduleId;
+
     @Column(nullable =  false, length = 35)
     private String hall;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private MovieEntity movie;
 
     @Column(nullable = true)
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date schedule;
+
+    @Column(nullable = true)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+
+    @Column(nullable = true)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date modifiedAt;
+
 
     public long getId() {
         return Id;
@@ -29,6 +40,22 @@ public class MovieScheduleEntity implements Serializable {
 
     public void setId(long id) {
         Id = id;
+    }
+
+    public String getScheduleId() {
+        return scheduleId;
+    }
+
+    public void setScheduleId(String scheduleId) {
+        this.scheduleId = scheduleId;
+    }
+
+    public MovieEntity getMovie() {
+        return movie;
+    }
+
+    public void setMovie(MovieEntity movie) {
+        this.movie = movie;
     }
 
     public String getHall() {
