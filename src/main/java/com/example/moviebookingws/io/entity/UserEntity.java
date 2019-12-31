@@ -12,7 +12,7 @@ public class UserEntity implements Serializable {
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long Id;
 
     @Column(nullable = false)
@@ -80,6 +80,10 @@ public class UserEntity implements Serializable {
 
     public String getEncryptedPassword() {
         return encryptedPassword;
+    }
+
+    public String getFullName() {
+        return this.getFirstName() + " " + this.getLastName();
     }
 
     public void setEncryptedPassword(String encryptedPassword) {

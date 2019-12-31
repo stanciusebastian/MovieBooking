@@ -11,7 +11,7 @@ import java.util.Set;
 public class MovieEntity implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long Id;
 
     @Column(nullable = false, length = 35)
@@ -19,9 +19,6 @@ public class MovieEntity implements Serializable {
 
     @Column(nullable = false, length = 35)
     private String movieId;
-
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
-    private Set<UserMovieEntity> usersJoined;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "genre_id")
@@ -68,14 +65,6 @@ public class MovieEntity implements Serializable {
 
     public void setPlayedActors(Set<ActorEntity> playedActors) {
         this.playedActors = playedActors;
-    }
-
-    public Set<UserMovieEntity> getUsersJoined() {
-        return usersJoined;
-    }
-
-    public void setUsersJoined(Set<UserMovieEntity> usersJoined) {
-        this.usersJoined = usersJoined;
     }
 
     public String getName() {
