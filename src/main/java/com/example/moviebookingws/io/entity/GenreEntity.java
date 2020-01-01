@@ -9,7 +9,7 @@ import java.util.Set;
 public class GenreEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long Id;
 
     @Column

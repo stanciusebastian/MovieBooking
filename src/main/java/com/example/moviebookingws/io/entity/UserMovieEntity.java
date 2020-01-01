@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class UserMovieEntity implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long Id;
 
     @Column
@@ -18,12 +18,12 @@ public class UserMovieEntity implements Serializable {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "movie_id")
-    private MovieEntity movie;
+    private MovieScheduleEntity movieSchedule;
 
     @Column(nullable = true, length = 10)
-    private long rating;
+    private Integer rating;
 
     public long getId() {
         return Id;
@@ -49,19 +49,19 @@ public class UserMovieEntity implements Serializable {
         this.user = user;
     }
 
-    public MovieEntity getMovie() {
-        return movie;
+    public MovieScheduleEntity getMovieSchedule() {
+        return movieSchedule;
     }
 
-    public void setMovie(MovieEntity movie) {
-        this.movie = movie;
+    public void setMovieSchedule(MovieScheduleEntity movieSchedule) {
+        this.movieSchedule = movieSchedule;
     }
 
     public long getRating() {
         return rating;
     }
 
-    public void setRating(long rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
 }
