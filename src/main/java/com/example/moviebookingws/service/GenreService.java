@@ -4,5 +4,5 @@ import com.example.moviebookingws.shared.dto.GenreDto;
 
 public interface GenreService {
     GenreDto createGenre(GenreDto genreDto);
-
+    GenreDto getGenreByGenreId(String genreId);
 }

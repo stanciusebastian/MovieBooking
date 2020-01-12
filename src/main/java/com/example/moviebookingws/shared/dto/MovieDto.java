@@ -12,6 +12,7 @@ public class MovieDto implements Serializable {
     private long Id;
     private String movieId;
     private long genreId;
+    private String name;
     private Set<UserMovieEntity> joinedUsers;
     private Set<ActorEntity> playedActors;
     private Date releaseDate;
@@ -80,5 +81,17 @@ public class MovieDto implements Serializable {
 
     public void setModifiedAt(Date modifiedAt) {
         this.modifiedAt = modifiedAt;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

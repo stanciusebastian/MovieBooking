@@ -7,7 +7,12 @@ import com.example.moviebookingws.shared.dto.GenreDto;
 import com.example.moviebookingws.shared.dto.Utils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.Optional;
+
+@Service
 public class GenreServiceImpl implements GenreService {
 
     @Autowired
@@ -26,5 +31,15 @@ public class GenreServiceImpl implements GenreService {
         BeanUtils.copyProperties(genre, genreDetails);
 
         return genreDetails;
+    }
+
+    @Override
+    public GenreDto getGenreByGenreId(String genreId) {
+        GenreDto genreDto = new GenreDto();
+        Optional<GenreEntity> genreEntity  = Optional.ofNullable(genreRepository.findByGenreId(genreId));
+        if (!genreEntity.isPresent())
+            throw new EntityNotFoundException("id-" + genreId);
+        BeanUtils.copyProperties(genreEntity.get(),genreDto);
+        return genreDto;
     }
 }
