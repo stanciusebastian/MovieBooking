@@ -25,30 +25,6 @@ public class MovieScheduleEntity implements Serializable {
     @OneToMany(mappedBy = "movieSchedule")
     private Set<UserMovieEntity> usersJoined;
 
-    public Set<UserMovieEntity> getUsersJoined() {
-        return usersJoined;
-    }
-
-    public void setUsersJoined(Set<UserMovieEntity> usersJoined) {
-        this.usersJoined = usersJoined;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getModifiedAt() {
-        return modifiedAt;
-    }
-
-    public void setModifiedAt(Date modifiedAt) {
-        this.modifiedAt = modifiedAt;
-    }
-
     @Column(nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     private Date schedule;
@@ -61,6 +37,13 @@ public class MovieScheduleEntity implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date modifiedAt;
 
+    public MovieEntity getMovie() {
+        return movie;
+    }
+
+    public void setMovie(MovieEntity movie) {
+        this.movie = movie;
+    }
 
     public long getId() {
         return Id;
@@ -101,5 +84,29 @@ public class MovieScheduleEntity implements Serializable {
 
     public void setSchedule(Date schedule) {
         this.schedule = schedule;
+    }
+
+    public Set<UserMovieEntity> getUsersJoined() {
+        return usersJoined;
+    }
+
+    public void setUsersJoined(Set<UserMovieEntity> usersJoined) {
+        this.usersJoined = usersJoined;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getModifiedAt() {
+        return modifiedAt;
+    }
+
+    public void setModifiedAt(Date modifiedAt) {
+        this.modifiedAt = modifiedAt;
     }
 }

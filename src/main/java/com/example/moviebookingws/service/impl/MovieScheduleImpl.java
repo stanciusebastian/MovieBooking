@@ -51,7 +51,7 @@ public class MovieScheduleImpl implements MovieScheduleService {
     @Override
     public MovieScheduleDto updateSchedule(String scheduleId, MovieScheduleDto movieScheduleDto) {
         MovieScheduleEntity movieScheduleEntity = movieScheduleRepository.findByScheduleId(scheduleId);
-        Optional<MovieEntity> movieEntity = movieRepository.findById(movieScheduleDto.getMovieId());
+        Optional<MovieEntity> movieEntity = movieRepository.findById(movieScheduleDto.getMovie().getId());
         if (movieScheduleEntity==null) {
             throw new EntityNotFoundException("ScheduleId-" + scheduleId);
         }

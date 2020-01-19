@@ -6,7 +6,7 @@ public class MovieScheduleRest {
     private String hall;
     private Date schedule;
     private String scheduleId;
-    private long movieId;
+    private String movieId;
     private Date createdAt;
     private Date modifiedAt;
 
@@ -34,11 +34,11 @@ public class MovieScheduleRest {
         this.scheduleId = scheduleId;
     }
 
-    public long getMovieId() {
+    public String getMovieId() {
         return movieId;
     }
 
-    public void setMovieId(long movieId) {
+    public void setMovieId(String movieId) {
         this.movieId = movieId;
     }
 

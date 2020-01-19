@@ -1,23 +1,23 @@
 package com.example.moviebookingws.ui.model.request;
 
-public class UserMovieRequestModel {
-    private long userId;
-    private long movieId;
+public class UserMovieDetailsRequestModel {
+    private String userId;
+    private String movieId;
     private long rating;
 
-    public long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public long getMovieId() {
+    public String getMovieId() {
         return movieId;
     }
 
-    public void setMovieId(long movieId) {
+    public void setMovieId(String movieId) {
         this.movieId = movieId;
     }
 

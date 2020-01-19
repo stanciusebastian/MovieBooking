@@ -1,13 +1,15 @@
 package com.example.moviebookingws.shared.dto;
 
+import com.example.moviebookingws.io.entity.MovieEntity;
+
 import java.io.Serializable;
 import java.util.Date;
 
 public class MovieScheduleDto implements Serializable {
     private static final long serialVersionUID = 1L;
     private long Id;
-    private long scheduleId;
-    private long movieId;
+    private String scheduleId;
+    private MovieEntity movie;
     private String hall;
     private Date schedule;
     private Date createdAt;
@@ -21,20 +23,20 @@ public class MovieScheduleDto implements Serializable {
         Id = id;
     }
 
-    public long getScheduleId() {
+    public String getScheduleId() {
         return scheduleId;
     }
 
-    public void setScheduleId(long scheduleId) {
+    public void setScheduleId(String scheduleId) {
         this.scheduleId = scheduleId;
     }
 
-    public long getMovieId() {
-        return movieId;
+    public MovieEntity getMovie() {
+        return movie;
     }
 
-    public void setMovieId(long movieId) {
-        this.movieId = movieId;
+    public void setMovie(MovieEntity movie) {
+        this.movie = movie;
     }
 
     public String getHall() {

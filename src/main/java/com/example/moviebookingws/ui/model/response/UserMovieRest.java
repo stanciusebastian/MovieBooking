@@ -4,11 +4,9 @@ import java.util.Date;
 
 public class UserMovieRest {
     private String attendeeId;
-    private long movieId;
-    private long userId;
+    private String movieId;
+    private String userId;
     private long rating;
-    private Date createdAt;
-    private Date modifiedAt;
 
     public String getAttendeeId() {
         return attendeeId;
@@ -18,19 +16,19 @@ public class UserMovieRest {
         this.attendeeId = attendeeId;
     }
 
-    public long getMovieId() {
+    public String getMovieId() {
         return movieId;
     }
 
-    public void setMovieId(long movieId) {
+    public void setMovieId(String movieId) {
         this.movieId = movieId;
     }
 
-    public long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -40,21 +38,5 @@ public class UserMovieRest {
 
     public void setRating(long rating) {
         this.rating = rating;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getModifiedAt() {
-        return modifiedAt;
-    }
-
-    public void setModifiedAt(Date modifiedAt) {
-        this.modifiedAt = modifiedAt;
     }
 }

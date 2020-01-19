@@ -53,10 +53,10 @@ public class MovieServiceImpl implements MovieService {
         if (movie==null) {
             throw new EntityNotFoundException("MovieId-" + movieId);
         }
-        Optional<GenreEntity> genreEntity = genreRepository.findById(movieDto.getGenreId());
         movie.setName(movieDto.getName());
         movie.setReleaseDate(movieDto.getReleaseDate());
-        movie.setGenre(genreEntity.get());
+        movie.setGenre(movieDto.getGenre());
+        movie.setModifiedAt(movieDto.getModifiedAt());
         MovieEntity movieEntity = movieRepository.save(movie);
         MovieDto movieDto1 = new MovieDto();
         BeanUtils.copyProperties(movieEntity, movieDto1);

@@ -5,8 +5,7 @@ import java.util.Date;
 public class MovieScheduleDetailsRequestModel {
     private String hall;
     private Date schedule;
-    private String scheduleId;
-    private long movieId;
+    private String movieId;
 
     public String getHall() {
         return hall;
@@ -24,19 +23,11 @@ public class MovieScheduleDetailsRequestModel {
         this.schedule = schedule;
     }
 
-    public String getScheduleId() {
-        return scheduleId;
-    }
-
-    public void setScheduleId(String scheduleId) {
-        this.scheduleId = scheduleId;
-    }
-
-    public long getMovieId() {
+    public String getMovieId() {
         return movieId;
     }
 
-    public void setMovieId(long movieId) {
+    public void setMovieId(String movieId) {
         this.movieId = movieId;
     }
 }
