@@ -1,17 +1,21 @@
 package com.example.moviebookingws.ui.controller;
 
 
+import com.example.moviebookingws.io.entity.ActorEntity;
 import com.example.moviebookingws.io.entity.MovieEntity;
 import com.example.moviebookingws.service.MovieScheduleService;
 import com.example.moviebookingws.service.MovieService;
 import com.example.moviebookingws.shared.dto.MovieDto;
 import com.example.moviebookingws.shared.dto.MovieScheduleDto;
 import com.example.moviebookingws.ui.model.request.MovieScheduleDetailsRequestModel;
+import com.example.moviebookingws.ui.model.response.ActorRest;
+import com.example.moviebookingws.ui.model.response.MovieRest;
 import com.example.moviebookingws.ui.model.response.MovieScheduleRest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 @RestController
@@ -28,7 +32,17 @@ public class MovieScheduleController {
         MovieScheduleDto movieScheduleDto = movieScheduleService.getMovieScheduleByScheduleId(scheduleId);
         MovieScheduleRest movieScheduleRest = new MovieScheduleRest();
         BeanUtils.copyProperties(movieScheduleDto, movieScheduleRest);
-        movieScheduleRest.setMovieId(movieScheduleDto.getMovie().getMovieId());
+        MovieRest movieRest = new MovieRest();
+        BeanUtils.copyProperties(movieScheduleDto.getMovie(), movieRest);
+        ArrayList<ActorRest> actors = new ArrayList<ActorRest>();
+        for (ActorEntity actorEntity: movieScheduleDto.getMovie().getPlayedActors()) {
+            ActorRest actorRest = new ActorRest();
+            BeanUtils.copyProperties(actorEntity,actorRest);
+            actors.add(actorRest);
+        }
+        movieRest.setActors(actors);
+        movieRest.setGenreId(movieScheduleDto.getMovie().getGenre().getGenreId());
+        movieScheduleRest.setMovie(movieRest);
         return movieScheduleRest;
     }
 
@@ -46,7 +60,9 @@ public class MovieScheduleController {
         MovieScheduleDto movieScheduleDto1 = movieScheduleService.createSchedule(movieScheduleDto);
         MovieScheduleRest movieScheduleRest = new MovieScheduleRest();
         BeanUtils.copyProperties(movieScheduleDto1, movieScheduleRest);
-        movieScheduleRest.setMovieId(movieScheduleDto1.getMovie().getMovieId());
+        MovieRest movieRest = new MovieRest();
+        BeanUtils.copyProperties(movieScheduleDto1.getMovie(), movieRest);
+        movieScheduleRest.setMovie(movieRest);
         return movieScheduleRest;
     }
 
@@ -64,7 +80,9 @@ public class MovieScheduleController {
         MovieScheduleDto scheduleDto = movieScheduleService.updateSchedule(scheduleId, movieScheduleDto);
         MovieScheduleRest movieScheduleRest = new MovieScheduleRest();
         BeanUtils.copyProperties(scheduleDto, movieScheduleRest);
-        movieScheduleRest.setMovieId(scheduleDto.getMovie().getMovieId());
+        MovieRest movieRest = new MovieRest();
+        BeanUtils.copyProperties(scheduleDto.getMovie(), movieRest);
+        movieScheduleRest.setMovie(movieRest);
         return movieScheduleRest;
     }
 

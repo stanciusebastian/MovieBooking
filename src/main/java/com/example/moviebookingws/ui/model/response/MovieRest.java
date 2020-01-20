@@ -8,7 +8,7 @@ public class MovieRest {
     private String name;
     private String genreId;
     private Date releaseDate;
-    private ArrayList<String> actorsIds;
+    private ArrayList<ActorRest> actors;
     private Date createdAt;
     private Date modifiedAt;
 
@@ -44,12 +44,12 @@ public class MovieRest {
         this.releaseDate = releaseDate;
     }
 
-    public ArrayList<String> getActorsIds() {
-        return actorsIds;
+    public ArrayList<ActorRest> getActors() {
+        return actors;
     }
 
-    public void setActorsIds(ArrayList<String> actorsIds) {
-        this.actorsIds = actorsIds;
+    public void setActors(ArrayList<ActorRest> actors) {
+        this.actors = actors;
     }
 
     public Date getCreatedAt() {

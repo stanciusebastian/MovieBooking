@@ -6,7 +6,7 @@ public class MovieScheduleRest {
     private String hall;
     private Date schedule;
     private String scheduleId;
-    private String movieId;
+    private MovieRest movie;
     private Date createdAt;
     private Date modifiedAt;
 
@@ -34,12 +34,12 @@ public class MovieScheduleRest {
         this.scheduleId = scheduleId;
     }
 
-    public String getMovieId() {
-        return movieId;
+    public MovieRest getMovie() {
+        return movie;
     }
 
-    public void setMovieId(String movieId) {
-        this.movieId = movieId;
+    public void setMovie(MovieRest movie) {
+        this.movie = movie;
     }
 
     public Date getCreatedAt() {

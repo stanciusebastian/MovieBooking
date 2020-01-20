@@ -3,7 +3,7 @@ package com.example.moviebookingws.ui.model.request;
 public class UserMovieDetailsRequestModel {
     private String userId;
     private String movieId;
-    private long rating;
+    private Integer rating;
 
     public String getUserId() {
         return userId;
@@ -21,11 +21,11 @@ public class UserMovieDetailsRequestModel {
         this.movieId = movieId;
     }
 
-    public long getRating() {
+    public Integer getRating() {
         return rating;
     }
 
-    public void setRating(long rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
 }

@@ -1,12 +1,10 @@
 package com.example.moviebookingws.ui.model.response;
 
-import java.util.Date;
-
 public class UserMovieRest {
     private String attendeeId;
-    private String movieId;
-    private String userId;
-    private long rating;
+    private MovieScheduleRest movie;
+    private UserRest user;
+    private Integer rating;
 
     public String getAttendeeId() {
         return attendeeId;
@@ -16,27 +14,27 @@ public class UserMovieRest {
         this.attendeeId = attendeeId;
     }
 
-    public String getMovieId() {
-        return movieId;
+    public MovieScheduleRest getMovie() {
+        return movie;
     }
 
-    public void setMovieId(String movieId) {
-        this.movieId = movieId;
+    public void setMovie(MovieScheduleRest movie) {
+        this.movie = movie;
     }
 
-    public String getUserId() {
-        return userId;
+    public UserRest getUser() {
+        return user;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUser(UserRest user) {
+        this.user = user;
     }
 
-    public long getRating() {
+    public Integer getRating() {
         return rating;
     }
 
-    public void setRating(long rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
 }

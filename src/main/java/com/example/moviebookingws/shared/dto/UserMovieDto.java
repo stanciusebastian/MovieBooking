@@ -1,13 +1,14 @@
 package com.example.moviebookingws.shared.dto;
 
 import com.example.moviebookingws.io.entity.MovieEntity;
+import com.example.moviebookingws.io.entity.MovieScheduleEntity;
 import com.example.moviebookingws.io.entity.UserEntity;
 
 public class UserMovieDto {
     private long Id;
     private String attendeeId;
-    private long rating;
-    private MovieEntity movie;
+    private Integer rating;
+    private MovieScheduleEntity movie;
     private UserEntity user;
 
     public long getId() {
@@ -26,19 +27,19 @@ public class UserMovieDto {
         this.attendeeId = attendeeId;
     }
 
-    public long getRating() {
+    public Integer getRating() {
         return rating;
     }
 
-    public void setRating(long rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
 
-    public MovieEntity getMovie() {
+    public MovieScheduleEntity getMovie() {
         return movie;
     }
 
-    public void setMovie(MovieEntity movie) {
+    public void setMovie(MovieScheduleEntity movie) {
         this.movie = movie;
     }
 

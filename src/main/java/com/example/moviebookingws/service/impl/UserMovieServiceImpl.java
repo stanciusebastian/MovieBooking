@@ -36,6 +36,7 @@ public class UserMovieServiceImpl implements UserMovieService {
         UserMovieEntity userMovieEntity = new UserMovieEntity();
         BeanUtils.copyProperties(userMovieDto, userMovieEntity);
         userMovieEntity.setAttendeeId(utils.generateAttendeeId(30));
+        userMovieEntity.setMovieSchedule(userMovieDto.getMovie());
         UserMovieEntity attendeeDetails = userMovieRepository.save(userMovieEntity);
         UserMovieDto attendee = new UserMovieDto();
         BeanUtils.copyProperties(userMovieEntity, attendee);
