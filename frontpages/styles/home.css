@@ -162,7 +162,8 @@ header h1 {
 }
 
 #myBtn,
-#myBtn2 {
+#myBtn2,
+#myBtn3 {
     font-family: "DIN", "Helvetica Neue", Helvetica, Arial, sans-serif;
     background-color: white;
     text-align: center;

@@ -1,14 +1,10 @@
 package com.example.moviebookingws.ui.model.response;
 
-import java.util.Date;
-
 public class UserMovieRest {
     private String attendeeId;
-    private long movieId;
-    private long userId;
-    private long rating;
-    private Date createdAt;
-    private Date modifiedAt;
+    private MovieScheduleRest movie;
+    private UserRest user;
+    private Integer rating;
 
     public String getAttendeeId() {
         return attendeeId;
@@ -18,43 +14,27 @@ public class UserMovieRest {
         this.attendeeId = attendeeId;
     }
 
-    public long getMovieId() {
-        return movieId;
+    public MovieScheduleRest getMovie() {
+        return movie;
     }
 
-    public void setMovieId(long movieId) {
-        this.movieId = movieId;
+    public void setMovie(MovieScheduleRest movie) {
+        this.movie = movie;
     }
 
-    public long getUserId() {
-        return userId;
+    public UserRest getUser() {
+        return user;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setUser(UserRest user) {
+        this.user = user;
     }
 
-    public long getRating() {
+    public Integer getRating() {
         return rating;
     }
 
-    public void setRating(long rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getModifiedAt() {
-        return modifiedAt;
-    }
-
-    public void setModifiedAt(Date modifiedAt) {
-        this.modifiedAt = modifiedAt;
     }
 }

@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class MovieDetailsRequestModel {
     private String name;
-    private long genreId;
+    private String genreId;
     private String[] actorsIds;
     private Date releaseDate;
 
@@ -24,11 +24,11 @@ public class MovieDetailsRequestModel {
         this.name = name;
     }
 
-    public long getGenreId() {
+    public String getGenreId() {
         return genreId;
     }
 
-    public void setGenreId(long genreId) {
+    public void setGenreId(String genreId) {
         this.genreId = genreId;
     }
 

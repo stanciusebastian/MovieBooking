@@ -1,5 +1,6 @@
 package com.example.moviebookingws.ui.model.response;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class MovieRest {
@@ -7,7 +8,7 @@ public class MovieRest {
     private String name;
     private String genreId;
     private Date releaseDate;
-    private String[] actorsIds;
+    private ArrayList<ActorRest> actors;
     private Date createdAt;
     private Date modifiedAt;
 
@@ -43,12 +44,12 @@ public class MovieRest {
         this.releaseDate = releaseDate;
     }
 
-    public String[] getActorsIds() {
-        return actorsIds;
+    public ArrayList<ActorRest> getActors() {
+        return actors;
     }
 
-    public void setActorsIds(String[] actorsIds) {
-        this.actorsIds = actorsIds;
+    public void setActors(ArrayList<ActorRest> actors) {
+        this.actors = actors;
     }
 
     public Date getCreatedAt() {

@@ -1,7 +1,7 @@
 package com.example.moviebookingws.shared.dto;
 
 import com.example.moviebookingws.io.entity.ActorEntity;
-import com.example.moviebookingws.io.entity.UserMovieEntity;
+import com.example.moviebookingws.io.entity.GenreEntity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,8 +11,8 @@ public class MovieDto implements Serializable {
     private static final long serialVersionUID = 1L;
     private long Id;
     private String movieId;
-    private long genreId;
-    private Set<UserMovieEntity> joinedUsers;
+    private GenreEntity genre;
+    private String name;
     private Set<ActorEntity> playedActors;
     private Date releaseDate;
     private Date createdAt;
@@ -34,20 +34,12 @@ public class MovieDto implements Serializable {
         this.movieId = movieId;
     }
 
-    public long getGenreId() {
-        return genreId;
+    public GenreEntity getGenre() {
+        return genre;
     }
 
-    public void setGenreId(long genreId) {
-        this.genreId = genreId;
-    }
-
-    public Set<UserMovieEntity> getJoinedUsers() {
-        return joinedUsers;
-    }
-
-    public void setJoinedUsers(Set<UserMovieEntity> joinedUsers) {
-        this.joinedUsers = joinedUsers;
+    public void setGenre(GenreEntity genre) {
+        this.genre = genre;
     }
 
     public Set<ActorEntity> getPlayedActors() {
@@ -80,5 +72,17 @@ public class MovieDto implements Serializable {
 
     public void setModifiedAt(Date modifiedAt) {
         this.modifiedAt = modifiedAt;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -57,7 +57,7 @@ public class UserMovieEntity implements Serializable {
         this.movieSchedule = movieSchedule;
     }
 
-    public long getRating() {
+    public Integer getRating() {
         return rating;
     }
 
