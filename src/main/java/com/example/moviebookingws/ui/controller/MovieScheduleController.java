@@ -62,6 +62,14 @@ public class MovieScheduleController {
         BeanUtils.copyProperties(movieScheduleDto1, movieScheduleRest);
         MovieRest movieRest = new MovieRest();
         BeanUtils.copyProperties(movieScheduleDto1.getMovie(), movieRest);
+        movieRest.setGenreId(movieScheduleDto1.getMovie().getMovieId());
+        ArrayList<ActorRest> actors = new ArrayList<ActorRest>();
+        for (ActorEntity actorEntity: movieScheduleDto1.getMovie().getPlayedActors()) {
+            ActorRest actorRest = new ActorRest();
+            BeanUtils.copyProperties(actorEntity,actorRest);
+            actors.add(actorRest);
+        }
+        movieRest.setActors(actors);
         movieScheduleRest.setMovie(movieRest);
         return movieScheduleRest;
     }
@@ -82,6 +90,14 @@ public class MovieScheduleController {
         BeanUtils.copyProperties(scheduleDto, movieScheduleRest);
         MovieRest movieRest = new MovieRest();
         BeanUtils.copyProperties(scheduleDto.getMovie(), movieRest);
+        movieRest.setGenreId(scheduleDto.getMovie().getMovieId());
+        ArrayList<ActorRest> actors = new ArrayList<ActorRest>();
+        for (ActorEntity actorEntity: scheduleDto.getMovie().getPlayedActors()) {
+            ActorRest actorRest = new ActorRest();
+            BeanUtils.copyProperties(actorEntity,actorRest);
+            actors.add(actorRest);
+        }
+        movieRest.setActors(actors);
         movieScheduleRest.setMovie(movieRest);
         return movieScheduleRest;
     }

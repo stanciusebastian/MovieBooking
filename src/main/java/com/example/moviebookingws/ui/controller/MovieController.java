@@ -78,6 +78,7 @@ public class MovieController {
             BeanUtils.copyProperties(actorEntity,actorRest);
             actors.add(actorRest);
         }
+        movieRest.setGenreId(movieDto.getGenre().getGenreId());
         movieRest.setActors(actors);
         return movieRest;
     }
@@ -97,11 +98,12 @@ public class MovieController {
         BeanUtils.copyProperties(movie, movieRest);
         movieRest.setGenreId(movie.getGenre().getGenreId());
         ArrayList<ActorRest> actors = new ArrayList<ActorRest>();
-        for (ActorEntity actorEntity: movieDto.getPlayedActors()) {
+        for (ActorEntity actorEntity: movie.getPlayedActors()) {
             ActorRest actorRest = new ActorRest();
             BeanUtils.copyProperties(actorEntity,actorRest);
             actors.add(actorRest);
         }
+        movieRest.setGenreId(movie.getGenre().getGenreId());
         movieRest.setActors(actors);
         return movieRest;
     }
