@@ -9,7 +9,7 @@ import com.example.moviebookingws.service.UserService;
 import com.example.moviebookingws.shared.dto.MovieScheduleDto;
 import com.example.moviebookingws.shared.dto.UserDto;
 import com.example.moviebookingws.ui.model.response.ActorRest;
-import com.example.moviebookingws.ui.model.response.MovieRest;
+import com.example.moviebookingws.ui.model.response.RecommenderRest;
 import org.apache.mahout.cf.taste.recommender.RecommendedItem;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,33 +27,36 @@ import java.util.List;
 public class RecommenderController {
     @Autowired
     RecommenderService recommenderService;
+
     @Autowired
     UserService userService;
+
     @Autowired
     MovieScheduleRepository movieScheduleRepository;
 
     @Autowired
     MovieScheduleService movieScheduleService;
     @GetMapping("/{id}")
-    public List<MovieRest> getRec(@PathVariable String id){
+    public List<RecommenderRest> getRec(@PathVariable String id){
         UserDto userDto = userService.getUserByUserId(id);
-        List<MovieRest> movieRests = new ArrayList<MovieRest>();
+        List<RecommenderRest> movieRests = new ArrayList<RecommenderRest>();
          for(RecommendedItem recommendedItem : recommenderService.getRecommendations(userDto.getId(),3)) {
-             MovieRest movieRest = new MovieRest();
+             RecommenderRest recommenderRest = new RecommenderRest();
              MovieScheduleDto movieScheduleDto =  movieScheduleService.getMovieScheduleById(recommendedItem.getItemID());
-             BeanUtils.copyProperties(movieScheduleDto, movieRest);
-             movieRest.setMovieId(movieScheduleDto.getMovie().getMovieId());
-             movieRest.setName(movieScheduleDto.getMovie().getName());
-             movieRest.setReleaseDate(movieScheduleDto.getMovie().getReleaseDate());
-             movieRest.setGenreId(movieScheduleDto.getMovie().getGenre().getGenreId());
+             BeanUtils.copyProperties(movieScheduleDto, recommenderRest);
+             recommenderRest.setMovieId(movieScheduleDto.getMovie().getMovieId());
+             recommenderRest.setName(movieScheduleDto.getMovie().getName());
+             recommenderRest.setReleaseDate(movieScheduleDto.getMovie().getReleaseDate());
+             recommenderRest.setGenreId(movieScheduleDto.getMovie().getGenre().getGenreId());
+             recommenderRest.setRating(recommendedItem.getValue());
              ArrayList<ActorRest> actors = new ArrayList<ActorRest>();
              for (ActorEntity actorEntity: movieScheduleDto.getMovie().getPlayedActors()) {
                  ActorRest actorRest = new ActorRest();
                  BeanUtils.copyProperties(actorEntity,actorRest);
                  actors.add(actorRest);
              }
-             movieRest.setActors(actors);
-            movieRests.add(movieRest);
+             recommenderRest.setActors(actors);
+            movieRests.add(recommenderRest);
          }
         return movieRests;
     }
