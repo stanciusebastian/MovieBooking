@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -70,5 +72,27 @@ public class MovieScheduleImpl implements MovieScheduleService {
         if (movieScheduleEntity==null)
             throw new EntityNotFoundException("id-" + scheduleId);
         movieScheduleRepository.delete(movieScheduleEntity);
+    }
+
+    @Override
+    public List<MovieScheduleDto> getMoviesSchedules() {
+        List<MovieScheduleEntity> movieScheduleEntities = movieScheduleRepository.findAll();
+        List<MovieScheduleDto> movieScheduleDtos = new ArrayList<MovieScheduleDto>();
+        for (MovieScheduleEntity movieScheduleEntity: movieScheduleEntities) {
+            MovieScheduleDto movieScheduleDto = new MovieScheduleDto();
+            BeanUtils.copyProperties(movieScheduleEntity, movieScheduleDto);
+            movieScheduleDtos.add(movieScheduleDto);
+        }
+        return movieScheduleDtos;
+    }
+
+    @Override
+    public MovieScheduleDto getMovieScheduleById(long Id) {
+        MovieScheduleDto movieScheduleDto = new MovieScheduleDto();
+        Optional<MovieScheduleEntity> movieScheduleEntity = Optional.ofNullable(movieScheduleRepository.findById(Id));
+        if (!movieScheduleEntity.isPresent())
+            throw new EntityNotFoundException("id-" + Id);
+        BeanUtils.copyProperties(movieScheduleEntity.get(),movieScheduleDto);
+        return movieScheduleDto;
     }
 }

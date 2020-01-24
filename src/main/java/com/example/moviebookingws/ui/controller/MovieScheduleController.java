@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("movies-schedule") //http://localhost::8080/movies-schedule
@@ -26,6 +27,29 @@ public class MovieScheduleController {
 
     @Autowired
     private MovieService movieService;
+
+    @GetMapping
+    public List<MovieScheduleRest> getMoviesSchedules() {
+        List<MovieScheduleDto> movieScheduleDtos = movieScheduleService.getMoviesSchedules();
+        List<MovieScheduleRest> movieScheduleRests = new ArrayList<MovieScheduleRest>();
+        for (MovieScheduleDto movieScheduleDto: movieScheduleDtos) {
+            MovieScheduleRest movieScheduleRest = new MovieScheduleRest();
+            BeanUtils.copyProperties(movieScheduleDto, movieScheduleRest);
+            MovieRest movieRest = new MovieRest();
+            BeanUtils.copyProperties(movieScheduleDto.getMovie(), movieRest);
+            ArrayList<ActorRest> actors = new ArrayList<ActorRest>();
+            for (ActorEntity actorEntity: movieScheduleDto.getMovie().getPlayedActors()) {
+                ActorRest actorRest = new ActorRest();
+                BeanUtils.copyProperties(actorEntity,actorRest);
+                actors.add(actorRest);
+            }
+            movieRest.setActors(actors);
+            movieRest.setGenreId(movieScheduleDto.getMovie().getGenre().getGenreId());
+            movieScheduleRest.setMovie(movieRest);
+            movieScheduleRests.add(movieScheduleRest);
+        }
+        return movieScheduleRests;
+    }
 
     @GetMapping("/{scheduleId}")
     public MovieScheduleRest getMovieSchedule(@PathVariable String scheduleId) {

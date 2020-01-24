@@ -12,6 +12,7 @@ import org.apache.mahout.cf.taste.recommender.UserBasedRecommender;
 import org.apache.mahout.cf.taste.similarity.UserSimilarity;
 import org.apache.mahout.cf.taste.impl.model.jdbc.MySQLJDBCDataModel;
 import org.apache.mahout.common.RandomUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jpa.EntityManagerFactoryInfo;
 import org.springframework.stereotype.Component;
 
@@ -22,8 +23,9 @@ import java.util.List;
 @Component
 public class CollaborativeFiltering {
 
+    @Autowired
     EntityManager entityManager;
-    private final String preferenceTable="users_movie";
+    private final String preferenceTable="user_movie";
 
 
     private DataSource getDataSourceFromMySqlEntityManager() {
