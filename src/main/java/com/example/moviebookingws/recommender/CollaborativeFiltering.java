@@ -7,15 +7,19 @@ import org.apache.mahout.cf.taste.impl.similarity.PearsonCorrelationSimilarity;
 import org.apache.mahout.cf.taste.model.DataModel;
 import org.apache.mahout.cf.taste.model.JDBCDataModel;
 import org.apache.mahout.cf.taste.neighborhood.UserNeighborhood;
+import org.apache.mahout.cf.taste.recommender.RecommendedItem;
 import org.apache.mahout.cf.taste.recommender.UserBasedRecommender;
 import org.apache.mahout.cf.taste.similarity.UserSimilarity;
 import org.apache.mahout.cf.taste.impl.model.jdbc.MySQLJDBCDataModel;
 import org.apache.mahout.common.RandomUtils;
 import org.springframework.orm.jpa.EntityManagerFactoryInfo;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.sql.DataSource;
+import java.util.List;
 
+@Component
 public class CollaborativeFiltering {
 
     EntityManager entityManager;
@@ -49,12 +53,12 @@ public class CollaborativeFiltering {
         return new GenericUserBasedRecommender(dataModel,userNeighborhood,userSimilarity);
     }
 
-    private void CollaborativeFiltering() throws TasteException {
+    public List<RecommendedItem> getRecommendations(long userID, int noOfRecommendations) throws TasteException {
         JDBCDataModel dataModel = new MySQLJDBCDataModel(getDataSourceFromMySqlEntityManager(),preferenceTable,"user_id","movie_id","rating","");
         RandomUtils.useTestSeed();
         UserSimilarity userSimilarity=getCorellationCoefficient(dataModel);
         UserNeighborhood userNeighborhood=getUserNeighborhood(10,userSimilarity,dataModel);
         UserBasedRecommender recommender=getUserBasedRecommender(dataModel,userNeighborhood,userSimilarity);
-        System.out.println(recommender.estimatePreference(1,6));
+        return recommender.recommend(userID,noOfRecommendations);
     }
 }
