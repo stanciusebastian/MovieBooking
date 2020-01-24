@@ -8,6 +8,7 @@ public interface MovieScheduleService {
     List<MovieScheduleDto> getMoviesSchedules();
     MovieScheduleDto createSchedule(MovieScheduleDto movieScheduleDto);
     MovieScheduleDto getMovieScheduleByScheduleId(String scheduleId);
+    MovieScheduleDto getMovieScheduleById(long id);
     MovieScheduleDto updateSchedule(String scheduleId, MovieScheduleDto movieScheduleDto);
     void deleteSchedule(String scheduleId);
 }

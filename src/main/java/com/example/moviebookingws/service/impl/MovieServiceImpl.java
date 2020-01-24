@@ -1,6 +1,5 @@
 package com.example.moviebookingws.service.impl;
 
-import com.example.moviebookingws.io.entity.GenreEntity;
 import com.example.moviebookingws.io.entity.MovieEntity;
 import com.example.moviebookingws.io.repositories.GenreRepository;
 import com.example.moviebookingws.io.repositories.MovieRepository;

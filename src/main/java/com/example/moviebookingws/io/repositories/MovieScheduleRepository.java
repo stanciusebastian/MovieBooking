@@ -8,6 +8,7 @@ import java.util.Collection;
 
 public interface MovieScheduleRepository extends JpaRepository<MovieScheduleEntity, Long> {
     MovieScheduleEntity findByScheduleId(String scheduleId);
+    MovieScheduleEntity findById(long Id);
 
     @Query(value = "SELECT * FROM  movie_schedule ms " +
             "WHERE DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:00') = DATE_SUB(DATE_FORMAT(ms.schedule, '%Y-%m-%d %H:%i'), INTERVAL 1 HOUR)", nativeQuery = true)

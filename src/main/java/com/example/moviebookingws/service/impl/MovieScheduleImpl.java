@@ -7,7 +7,6 @@ import com.example.moviebookingws.io.repositories.MovieScheduleRepository;
 import com.example.moviebookingws.service.MovieScheduleService;
 import com.example.moviebookingws.shared.dto.MovieScheduleDto;
 import com.example.moviebookingws.shared.dto.Utils;
-import org.apache.avro.generic.GenericData;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -85,5 +84,15 @@ public class MovieScheduleImpl implements MovieScheduleService {
             movieScheduleDtos.add(movieScheduleDto);
         }
         return movieScheduleDtos;
+    }
+
+    @Override
+    public MovieScheduleDto getMovieScheduleById(long Id) {
+        MovieScheduleDto movieScheduleDto = new MovieScheduleDto();
+        Optional<MovieScheduleEntity> movieScheduleEntity = Optional.ofNullable(movieScheduleRepository.findById(Id));
+        if (!movieScheduleEntity.isPresent())
+            throw new EntityNotFoundException("id-" + Id);
+        BeanUtils.copyProperties(movieScheduleEntity.get(),movieScheduleDto);
+        return movieScheduleDto;
     }
 }
